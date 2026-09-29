@@ -54,3 +54,5 @@ bin/
 
 ### Mac OS ###
 .DS_Store bcba92f (Creating project and git repository)
+db.properties
+*.iml
