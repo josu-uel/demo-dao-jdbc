@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
+/* Classe seller, estabelece as caracteristicas e motos que
+* todo objeto seller deve ter */
+
 public class Seller implements Serializable {
 
     public static final long serialVersionUID = 1L;

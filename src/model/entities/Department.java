@@ -3,6 +3,10 @@ package model.entities;
 import java.io.Serializable;
 import java.util.Objects;
 
+/* Classe departament, estabelece as caracteristicas e os metodos
+* que um objeto departament deve ter */
+
+
 public class Department implements Serializable {
     public static final long serialVersionUID = 1L;
     private Integer id;
