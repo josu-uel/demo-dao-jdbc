@@ -27,14 +27,14 @@ public class DepartmentDaoJDBC implements DepartmentDao {
         try {
 
             st = conn.prepareStatement(
-                    "INSERT INTO department "
-                            + "(Name)"
-                            + "VALUES "
-                            + "(?)",
-                    +Statement.RETURN_GENERATED_KEYS);
-            st.setString(2, obj.getName());
+                    "INSERT INTO department (Name) VALUES (?)",
+                     Statement.RETURN_GENERATED_KEYS);
+
+            st.setString(1, obj.getName());
 
             int rowsAffected = st.executeUpdate();
+
+            System.out.println(rowsAffected + " rows affected.");
             if (rowsAffected > 0) {
                 ResultSet rs = st.getGeneratedKeys();
                 if (rs.next()) {
@@ -55,11 +55,43 @@ public class DepartmentDaoJDBC implements DepartmentDao {
         @Override
     public void update(Department obj) {
 
+            PreparedStatement st = null;
+
+            try {
+                st = conn.prepareStatement(
+                        "UPDATE department "
+                                + "SET Name = ? "
+                                + "WHERE Id = ?");
+
+                st.setString(1, obj.getName());
+                st.setInt(2, obj.getId());
+                st.executeUpdate();
+
+            } catch (SQLException e) {
+                throw new DbException(e.getMessage());
+            }
+            finally {
+                DB.closeStatement(st);
+            }
+
     }
 
     @Override
     public void deleteById(Integer id) {
+                PreparedStatement st = null;
 
+                try {
+
+                    st = conn.prepareStatement("DELETE FROM department WHERE department.Id = ?");
+                    st.setInt(1, id);
+                    st.executeUpdate();
+
+                } catch (SQLException e) {
+                    throw new DbException(e.getMessage());
+                }
+                finally {
+                    DB.closeStatement(st);
+                }
     }
 
     @Override
